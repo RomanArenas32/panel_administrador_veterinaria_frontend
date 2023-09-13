@@ -4,15 +4,20 @@ import { useAuth } from "../hooks"
 export const AdminLayout = () => {
 
   const { auth, cargando } = useAuth()
-  console.log(auth)
-    if(cargando) return 'cargando'
-    return (
-       <>
-      
-          {
-            auth ? <Outlet /> : < Navigate to="/" />
-          }
-      </>
-    )
-     
+  if (cargando) return 'cargando'
+  return (
+    <>
+
+      {
+        auth._id ?
+          (
+            <main className="container mx-auto shadow-lg">
+              <Outlet />
+            </main>
+          )
+          : < Navigate to="/" />
+      }
+    </>
+  )
+
 }

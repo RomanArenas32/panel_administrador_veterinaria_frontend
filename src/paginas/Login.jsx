@@ -6,7 +6,6 @@ import clienteAxios from "../config/axios";
 
 export const Login = () => {
 
-  const { auth } = useAuth();
 
 
   const [email, setEmail] = useState("");
@@ -14,6 +13,9 @@ export const Login = () => {
   const [alerta, setAlerta] = useState({});
 
   const navigate = useNavigate();
+
+
+  const {setAuth, auth} = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ export const Login = () => {
     try {
       const {data} = await clienteAxios.post(`/veterinarios/login`, { email, password });
       localStorage.setItem('token', data.token);
+      setAuth(data)
       navigate("/admin")
     } catch (error) {
       console.log(error)
