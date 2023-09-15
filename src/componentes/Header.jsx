@@ -3,15 +3,15 @@ import { useAuth } from "../hooks/useAuth"
 
 export const Header = () => {
 
-  const {cerrarSesion} = useAuth();
+  const { cerrarSesion, auth } = useAuth();
+  const { nombre } = auth;
 
-  
 
   return (
     <header className="shadow-2xl ">
       <div className="container m-auto text-center font-bold bg-[--color6] text-[--color5] text-2xl p-4">
-        <h1>Usted posee todos los permisos de edicion.</h1>
-        <p>Uselos con responsabilidad</p>
+        <h1>Bienvenido {nombre}.</h1>
+        <p>Comienza a administrar tus pacientes</p>
       </div>
       <div className="flex justify-between p-5 flex-col md:flex-row sm:items-center gap-2">
         <nav className="bg-[--color2] text-[--color4] font-bold text-xl flex gap-5 p-5  uppercase">
