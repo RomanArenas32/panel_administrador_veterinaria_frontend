@@ -16,7 +16,7 @@ export const Header = () => {
       <div className="flex justify-between p-5 flex-col md:flex-row sm:items-center gap-2">
         <nav className="bg-[--color2] text-[--color4] font-bold text-xl flex gap-5 p-5  uppercase">
           <Link to="/admin">Pacientes</Link>
-          <Link to="/perfil">Perfil</Link>
+          <Link to="/admin/perfil">Perfil</Link>
 
         </nav>
         <button

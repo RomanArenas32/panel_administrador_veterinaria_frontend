@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AdminLayout, AuthLayout } from './layout';
-import { Login, ConfirmarCuenta, OlvidePassword, Registrar, NuevaContraseña, AdministrarPacientes } from './paginas';
+import { Login, ConfirmarCuenta, OlvidePassword, Registrar, NuevaContraseña, AdministrarPacientes, EditarPerfil, EditarPassword } from './paginas';
 import { AuthProvider } from './context/AuthProvider';
 import { PacientesProvider } from './context/PacientesProvider';
 
@@ -28,6 +28,8 @@ export const App = () => {
           <Routes >
             <Route path='/admin' element={<AdminLayout />}>
               <Route index element={<AdministrarPacientes />} />
+              <Route path='perfil' element={<EditarPerfil />} />
+              <Route path='cambiar-password' element={<EditarPassword />} />
             </Route>
 
 
