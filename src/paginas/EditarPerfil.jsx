@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { AdminNav } from '../componentes/AdminNav'
-import { Footer } from '../componentes';
+import { Footer, Mensaje } from '../componentes';
 import { useAuth } from '../hooks/useAuth';
 
 export const EditarPerfil = () => {
 
-  const [veterinario, setVeterinario] = useState({})
+  const [perfil, setPerfil] = useState({})
+  const [alerta, setAlerta] = useState({})
 
-  const {auth , setAuth} = useAuth();
+  const {auth , actualizarPerfil} = useAuth();
   useEffect(()=>{
-    setVeterinario(auth)
+    setPerfil(auth)
   }, [auth])
 
 
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setAuth(veterinario)
-    console.log("formData");
+    const {nombre, email} = perfil;
+    if([nombre, email].includes("")){
+      setAlerta({
+        mensaje: "Debe completar los campos requeridos",
+        error : true
+      })
+      return
+    }
+
+
+    await actualizarPerfil(perfil);
+    setAlerta({
+      mensaje: "Usuario actualizado con exito",
+      error: false
+    })
   };
+ 
+
+  const  {mensaje} = alerta;
   return (
     <>
       <div className="bg-[--color2] shadow-md  px-8 pt-6 pb-8  text-[--color5] " >
@@ -40,10 +55,12 @@ export const EditarPerfil = () => {
               type="text"
               id="nombre"
               name="nombre"
-              value={veterinario.nombre}
-              
+              value={perfil.nombre || ""}
+              onChange={e => setPerfil({
+                ...perfil,
+                [e.target.name] : e.target.value
+              })}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-              required
             />
           </div>
           <div className="mb-4">
@@ -52,9 +69,13 @@ export const EditarPerfil = () => {
             </label>
             <input
               type="text"
-              id="sitioWeb"
-              name="sitioWeb"
-              value={veterinario.web}
+              id="web"
+              name="web"
+              value={perfil.web || ""}
+              onChange={e => setPerfil({
+                ...perfil,
+                [e.target.name] : e.target.value
+              })}
              
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
             />
@@ -67,7 +88,11 @@ export const EditarPerfil = () => {
               type="tel"
               id="telefono"
               name="telefono"
-              value={veterinario.telefono}
+              value={perfil.telefono || ""}
+              onChange={e => setPerfil({
+                ...perfil,
+                [e.target.name] : e.target.value
+              })}
               
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
             />
@@ -80,10 +105,14 @@ export const EditarPerfil = () => {
               type="email"
               id="email"
               name="email"
-              value={veterinario.email}
+              value={perfil.email || ""}
+              onChange={e => setPerfil({
+                ...perfil,
+                [e.target.name] : e.target.value
+              })}
               
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-              required
+
             />
           </div>
           <div className="text-center">
@@ -95,6 +124,9 @@ export const EditarPerfil = () => {
             </button>
           </div>
         </form>
+        {
+          mensaje &&  <Mensaje alerta={alerta}/>
+        }
       </div>
       <Footer/>
     </>

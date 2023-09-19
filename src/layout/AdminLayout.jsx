@@ -9,7 +9,7 @@ export const AdminLayout = () => {
     <>
 
       {
-        auth._id ?
+        auth.email ?
           (
             <main className="container mx-auto shadow-lg">
               <Outlet />
